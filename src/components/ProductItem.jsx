@@ -1,7 +1,6 @@
 const ProductItem = ({ product }) => {
   return (
     <div
-      key={product.id}
       style={{
         display: "flex",
         gap: "1rem",
@@ -11,7 +10,7 @@ const ProductItem = ({ product }) => {
     >
       <h2>{product.nombre}</h2>
       <p>precio: ${product.precio}</p>
-      <p>cantidad: ${product.cantidad}</p>
+      <p>cantidad: {product.cantidad}</p>
       <button>Eliminar</button>
     </div>
   );
