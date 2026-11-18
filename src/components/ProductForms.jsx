@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ProductContext } from "../context/ProductContext";
 
-const ProductForm = ({ onAdd }) => {
+const ProductForm = () => {
   const [nombre, setNombre] = useState("");
   const [precio, setPrecio] = useState(0);
   const [cantidad, setCantidad] = useState(0);
 
-  console.log({ id: crypto.randomUUID(), nombre, precio, cantidad });
+  const { handleAddProduct } = useContext(ProductContext);
+
+  // console.log({ id: crypto.randomUUID(), nombre, precio, cantidad });
 
   const handleAdd = () => {
-    onAdd({ id: crypto.randomUUID(), nombre, precio, cantidad });
+    handleAddProduct({ id: crypto.randomUUID(), nombre, precio, cantidad });
     setNombre("");
     setPrecio(0);
     setCantidad(0);
