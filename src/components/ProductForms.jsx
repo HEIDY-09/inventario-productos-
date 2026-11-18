@@ -1,44 +1,79 @@
-import { useContext, useState } from "react";
-import { ProductContext } from "../context/ProductContext";
+import React, { useState, useContext, useEffect } from 'react';
+import { ProductContext } from '../context/ProductContext';
 
 const ProductForm = () => {
-  const [nombre, setNombre] = useState("");
-  const [precio, setPrecio] = useState(0);
-  const [cantidad, setCantidad] = useState(0);
+  const { editingProduct, setEditingProduct, updateProduct, addProduct } = useContext(ProductContext);
+  
+  const [form, setForm] = useState({ nombre: '', cantidad: '', precio: '' });
 
-  const { handleAddProduct } = useContext(ProductContext);
+  // Cada vez que 'editingProduct' cambie, rellenamos el formulario si existe
+  useEffect(() => {
+    if (editingProduct) {
+      setForm(editingProduct);
+    }
+  }, [editingProduct]);
 
-  // console.log({ id: crypto.randomUUID(), nombre, precio, cantidad });
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-  const handleAdd = () => {
-    handleAddProduct({ id: crypto.randomUUID(), nombre, precio, cantidad });
-    setNombre("");
-    setPrecio(0);
-    setCantidad(0);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (editingProduct) {
+      // Función del contexto para actualizar
+      updateProduct(form);
+    } else {
+      // Función del contexto para agregar nuevo
+      addProduct({ ...form, id: Date.now() });
+    }
+    // Limpiar formulario y cerrar modo edición
+    setForm({ nombre: '', cantidad: '', precio: '' });
+    setEditingProduct(null);
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Nombre del producto"
-        value={nombre}
-        onChange={(event) => setNombre(event.target.value)}
+    <form className="product-form" onSubmit={handleSubmit}>
+      <h2>{editingProduct ? 'Editar Producto' : 'Agregar Producto'}</h2>
+      
+      <input 
+        type="text" 
+        name="nombre" 
+        placeholder="Nombre" 
+        value={form.nombre} 
+        onChange={handleChange} 
+        required 
       />
-      <input
-        type="number"
-        placeholder="Precio"
-        value={precio}
-        onChange={(event) => setPrecio(event.target.value)}
+      <input 
+        type="number" 
+        name="cantidad" 
+        placeholder="Cantidad" 
+        value={form.cantidad} 
+        onChange={handleChange} 
+        required 
       />
-      <input
-        type="number"
-        placeholder="Cantidad"
-        value={cantidad}
-        onChange={(event) => setCantidad(event.target.value)}
+      <input 
+        type="number" 
+        name="precio" 
+        placeholder="Precio" 
+        value={form.precio} 
+        onChange={handleChange} 
+        required 
       />
-      <button onClick={handleAdd}>Agregar</button>
-    </div>
+      
+      <button type="submit" className="btn-submit">
+        {editingProduct ? 'Actualizar Cambios' : 'Guardar Producto'}
+      </button>
+
+      {editingProduct && (
+        <button 
+          type="button" 
+          className="btn-cancel" 
+          onClick={() => { setEditingProduct(null); setForm({ nombre: '', cantidad: '', precio: '' }); }}
+        >
+          Cancelar
+        </button>
+      )}
+    </form>
   );
 };
 
