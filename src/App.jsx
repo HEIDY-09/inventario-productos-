@@ -10,8 +10,9 @@ function App() {
       <ProductPrivider>
         <h1>Inventario de productos</h1>
         <ProductForm />
-        <ProductList />
-        {/* <ClaseUseEffect /> */}
+        <ProductList isEdit={true} />
+        <h2>======Lista de productos para el usuario=====</h2>
+        <ProductList isEdit={false} />
       </ProductPrivider>
     </>
   );
