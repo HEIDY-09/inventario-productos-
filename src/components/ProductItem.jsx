@@ -26,7 +26,7 @@ const reducerCouter = (state, action) => {
 const ProductItem = ({ product, isEdit }) => {
   const [state, dispatch] = useReducer(reducerCouter, initialState);
 
-  console.log(state);
+  // console.log(state);
 
   const { handleDeleteItem } = useContext(ProductContext);
 

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import { ProductContext } from "../context/ProductContext";
 
 const ProductForm = () => {
@@ -8,6 +8,10 @@ const ProductForm = () => {
 
   const { handleAddProduct } = useContext(ProductContext);
 
+  const inputRef = useRef(null);
+
+  const totalPrductRef = useRef(0);
+
   // console.log({ id: crypto.randomUUID(), nombre, precio, cantidad });
 
   const handleAdd = () => {
@@ -15,11 +19,19 @@ const ProductForm = () => {
     setNombre("");
     setPrecio(0);
     setCantidad(0);
+
+    totalPrductRef.current = totalPrductRef.current + 1;
+    console.log(
+      `Total de productos agregados en esta sesion: ${totalPrductRef.current}`,
+    );
+
+    inputRef.current.focus();
   };
 
   return (
     <div>
       <input
+        ref={inputRef}
         type="text"
         placeholder="Nombre del producto"
         value={nombre}
