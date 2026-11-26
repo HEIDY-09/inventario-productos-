@@ -1,6 +1,5 @@
 import { useContext, useReducer } from "react";
 import { ProductContext } from "../context/ProductContext";
-import "./ProductItem.css";
 
 const initialState = {
   cantidad: 1,
@@ -32,45 +31,33 @@ const ProductItem = ({ product, isEdit }) => {
   const { handleDeleteItem } = useContext(ProductContext);
 
   return (
-    <article className="product-item card">
-      <h2 className="product-item__title">{product.nombre}</h2>
-      <p className="product-item__price">precio: ${product.precio}</p>
+    <div
+      style={{
+        display: "flex",
+        gap: "1rem",
+        justifyItems: "center",
+        alignItems: "center",
+      }}
+    >
+      <h2>{product.nombre}</h2>
+      <p>precio: ${product.precio}</p>
 
       {isEdit ? (
-        <p className="product-item__quantity badge--exito">
-          cantidad: {product.cantidad}
-        </p>
+        <p>cantidad: {product.cantidad}</p>
       ) : (
-        <div className="product-item__controls">
-          <button
-            className="btn btn--secundario"
-            onClick={() => dispatch({ type: "DECREMENTAR" })}
-          >
-            -
-          </button>
-          <p className="product-item__quantity">Cantidad {state.cantidad}</p>
-          <button
-            className="btn btn--secundario"
-            onClick={() => dispatch({ type: "INCREMENTAR" })}
-          >
-            +
-          </button>
-        </div>
+        <>
+          <button onClick={() => dispatch({ type: "DECREMENTAR" })}>-</button>
+          <p>Cantidad {state.cantidad}</p>
+          <button onClick={() => dispatch({ type: "INCREMENTAR" })}>+</button>
+        </>
       )}
 
-      <div className="product-item__actions">
-        {isEdit ? (
-          <button
-            className="btn btn--peligro"
-            onClick={() => handleDeleteItem(product.id)}
-          >
-            Eliminar
-          </button>
-        ) : (
-          <button className="btn btn--acento">Comprar</button>
-        )}
-      </div>
-    </article>
+      {isEdit ? (
+        <button onClick={() => handleDeleteItem(product.id)}>Eliminar</button>
+      ) : (
+        <button>Comprar</button>
+      )}
+    </div>
   );
 };
 

@@ -1,6 +1,5 @@
 import { useContext, useState, useRef } from "react";
 import { ProductContext } from "../context/ProductContext";
-import "./ProductForms.css";
 
 const ProductForm = () => {
   const [nombre, setNombre] = useState("");
@@ -30,9 +29,8 @@ const ProductForm = () => {
   };
 
   return (
-    <div className="product-form card">
+    <div>
       <input
-        className="input"
         ref={inputRef}
         type="text"
         placeholder="Nombre del producto"
@@ -40,22 +38,18 @@ const ProductForm = () => {
         onChange={(event) => setNombre(event.target.value)}
       />
       <input
-        className="input"
         type="number"
         placeholder="Precio"
         value={precio}
         onChange={(event) => setPrecio(event.target.value)}
       />
       <input
-        className="input"
         type="number"
         placeholder="Cantidad"
         value={cantidad}
         onChange={(event) => setCantidad(event.target.value)}
       />
-      <button className="btn btn--acento" type="button" onClick={handleAdd}>
-        Agregar
-      </button>
+      <button onClick={handleAdd}>Agregar</button>
     </div>
   );
 };
