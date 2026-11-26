@@ -1,0 +1,9 @@
+.product-form {
+  display: grid;
+  gap: var(--espacio-md);
+  margin-top: var(--espacio-lg);
+}
+
+.product-form .btn {
+  width: 100%;
+}

@@ -1,5 +1,6 @@
 import { useContext, useState, useMemo } from "react";
 import { ProductContext } from "../context/ProductContext";
+import "./ProductSummary.css";
 
 export const ProductSummary = () => {
   const { productos } = useContext(ProductContext);
@@ -21,14 +22,23 @@ export const ProductSummary = () => {
   console.log("Render del componente...");
 
   return (
-    <div>
-      <h2>Resumen de productos</h2>
-      <p>Total de productos: {resumen.totalProducts}</p>
+    <section className="product-summary card">
+      <h2 className="product-summary__title">Resumen de productos</h2>
+      <p className="product-summary__text">
+        Total de productos: {resumen.totalProducts}
+      </p>
 
-      <button onClick={() => setMostrar(!monstrar)}>
+      <button
+        className="btn btn--secundario"
+        onClick={() => setMostrar(!monstrar)}
+      >
         {monstrar ? "Ocultar" : "Mostrar"}
       </button>
-      {monstrar && <p>Valor total: ${resumen.totalValue}</p>}
-    </div>
+      {monstrar && (
+        <p className="product-summary__value">
+          Valor total: ${resumen.totalValue}
+        </p>
+      )}
+    </section>
   );
 };
