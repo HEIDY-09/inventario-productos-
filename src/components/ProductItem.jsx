@@ -1,6 +1,7 @@
 import { useContext, useReducer } from "react";
 import { ProductContext } from "../context/ProductContext";
 
+<<<<<<< HEAD
 const initialState = {
   cantidad: 1,
   name: "Cesar",
@@ -57,6 +58,26 @@ const ProductItem = ({ product, isEdit }) => {
       ) : (
         <button>Comprar</button>
       )}
+=======
+const ProductItem = ({ product }) => {
+  // Extraemos setEditingProduct del contexto para activar la edición
+  const { setEditingProduct } = useContext(ProductContext);
+
+  return (
+    <div className="product-card">
+      <div>
+        <h3>{product.nombre}</h3>
+        <p>Precio: ${product.precio} | Cantidad: {product.cantidad}</p>
+      </div>
+
+      {/* Botón de Editar */}
+      <button 
+        className="btn-edit" 
+        onClick={() => setEditingProduct(product)}
+      >
+        Editar
+      </button>
+>>>>>>> 8bbf30f16f778c2b0562727e803e5e6b27bce1f9
     </div>
   );
 };
